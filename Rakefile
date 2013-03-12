@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "rails-domain"
   gem.homepage = "http://github.com/davidguthu/rails-domain"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Separate domain logic from your active record models}
+  gem.description = %Q{Separate domain logic from your active record models}
   gem.email = "davidguthu@gmail.com"
   gem.authors = ["David Guthu"]
   # dependencies defined in Gemfile
@@ -28,17 +28,17 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
+  test.pattern = 'test/**/*.spec.rb'
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
+#require 'rcov/rcovtask'
+#Rcov::RcovTask.new do |test|
+#  test.libs << 'test'
+#  test.pattern = 'test/**/test_*.rb'
+#  test.verbose = true
+#  test.rcov_opts << '--exclude "gems/*"'
+#end
 
 task :default => :test
 

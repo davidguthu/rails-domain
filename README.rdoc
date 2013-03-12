@@ -1,6 +1,49 @@
 = rails-domain
 
-Description goes here.
+I wanted to be able to work with objects other than AR that could be used to truly hide activerecord interface
+from the objects that were being interacted with at layers in the system above the domain model.
+
+The idea for me was to create objects that would be separate from the activerecord models, but that would
+delegate down methods not found on themselves so that the AR interface was still present.  Then I could
+slowly remove the AR interface from delegation.
+
+Hope to in the future make it easy to configure which methods are delegated down so you can easily start
+restricting access to only the actual interface you have written on your domain objects.
+
+
+= Installation
+
+gem 'rails-domain'
+bundle install
+
+= Usage
+
+class Post < RailsDomain::BaseDomain
+
+  def your_method
+
+  end
+
+end
+
+
+It's a simple as that.  All your domain logic can go in this class.  Calls out to AR methods will still
+work as they delegate down to the persistence object (the active record model which is located via convention).
+
+What if you have an AR model that doesn't match the domain of your domain model, well you can configure it in
+that case using the ImplementationProvider class.
+
+Create an initializer called config/initializers/rails-domain.rb in it define any of your domain classes that
+can't be found via convention:
+
+RailsDomain.map_domain_class('ActiveRecordClassName', 'DomainClassName')
+
+You can also use set the default namespace that rails domain will look for when finding your domain classes. If
+you don't configure this it defaults to 'Domain', so if you have a Post activerecord model it will expect to find
+a class Domain::Post. To set a custom namespace add this to the initializer
+
+RailsDomain.domain_namespace=CustomNamespace
+
 
 == Contributing to rails-domain
  
